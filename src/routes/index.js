@@ -16,9 +16,9 @@ router.use('/users', require('./user'))
 router.use('/tokens', require('./token'))
 
 // order:
-router.use('/orders', require('./order'))
+router.use('/orders', require('./reservation'))
 // pizza:
-router.use('/pizzas', require('./pizza'))
+router.use('/pizzas', require('./room'))
 // topping:
 router.use('/toppings', require('./topping'))
 
