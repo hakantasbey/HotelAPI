@@ -35,11 +35,26 @@ const ReservationSchema = new mongoose.Schema ({
         type: Number,
         default: 1
     },
-    night: {
-        type: Number,
-        
-    }
+    night:{
+        type:Number,
+        get:function(){
+            const timeDifference=this.departureDate.getTime()-this.arrivalDate.getTime()
+            const nightCount=Math.ceil(timeDifference/(1000*60*60*24))
+            return nightCount
+        },
+        price: {
+            type: Number,
+            required: true 
+        },
+        totalPrice:{
+            type: Number,
+            default: function(){return this.night*this.price},
+            transform: function(){return this.night*this.price}
+        }
 },{
     collection: "reservations",
-    timestamps: true
+    timestamps: true,
+    toJSON: { getters: true },
 })
+
+module.exports = mongoose.model('Reservation', ReservationSchema)
